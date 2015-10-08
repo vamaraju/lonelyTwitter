@@ -7,9 +7,10 @@ import java.util.Comparator;
 /**
  * Created by vamaraju on 9/30/15.
  */
-public class TweetList {
+public class TweetList implements MyObservable {
 
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    private ArrayList<MyObserver> myObservers = new ArrayList<MyObserver>();
 
     public TweetList() {
 
@@ -23,7 +24,9 @@ public class TweetList {
         if (tweets.contains(tweet)) {
             throw new IllegalArgumentException("Tweet is already in TweetList!");
         }
+
         tweets.add(tweet);
+        notifyObservers();
     }
 
     public void removeTweet(Tweet tweet) {
@@ -55,5 +58,15 @@ public class TweetList {
 
     public int getCount() {
         return tweets.size();
+    }
+
+    public void addObserver(MyObserver observer) {
+        myObservers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (MyObserver observer : myObservers) {
+            observer.myNotify();
+        }
     }
 }
