@@ -31,8 +31,7 @@ public abstract class Tweet extends Object implements Tweetable {
             throw new TweetTooLongException();
         }
     }
-
-    public Date getDate() {
+   public Date getDate() {
         return date;
     }
 
